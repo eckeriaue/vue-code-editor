@@ -2,13 +2,13 @@ import {ref} from 'vue'
 
 import { javascript } from '@codemirror/lang-javascript'
 import { oneDark } from '@codemirror/theme-one-dark'
-import { html as htmlLang } from '@codemirror/lang-html'
+import { html } from '@codemirror/lang-html'
 import {css} from '@codemirror/lang-css'
 
 export default {
   html: {
     code: ref(''),
-    extensions: [htmlLang(), oneDark],
+    extensions: [html(), oneDark],
   },
   js: {
     code: ref(''),
