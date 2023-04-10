@@ -1,7 +1,9 @@
 <script  lang="ts">
+
+  // todo: сделать вариации редактора
+  // сделать компиляцию только скриптов, html и css компилировать сразу
   import { ref, unref, computed, defineComponent, reactive } from 'vue'
   import config from './helpers/config'
-
   import langMap from './helpers/ls'
   import editor from './helpers/editor'
   import preview from './helpers/preview'
