@@ -1,4 +1,4 @@
-import {ref} from 'vue'
+import {ref, type Ref} from 'vue'
 
 import { javascript } from '@codemirror/lang-javascript'
 import { oneDark } from '@codemirror/theme-one-dark'
@@ -18,5 +18,10 @@ export default {
     code: ref(''),
     extensions: [css(), oneDark],
   },
+} as {
+  [lang in 'html' | 'js' | 'css']: {
+    code: Ref<string>,
+    extensions: any[]
+  }
 }
 

@@ -1,6 +1,6 @@
 import { reactive } from "vue"
 export default {
   styles: reactive({
-    width: '50%',
+    width: (window.innerWidth / 2) + 'px',
   })
 }
