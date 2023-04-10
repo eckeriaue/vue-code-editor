@@ -1,7 +1,8 @@
+import { reactive } from "vue"
 
 
 
-
-export default {
+export default reactive({
   switched: false,
-}
+  fullscreen: false,
+})
