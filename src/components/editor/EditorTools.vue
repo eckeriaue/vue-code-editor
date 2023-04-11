@@ -8,8 +8,8 @@
 </script>
 
 <template>
-  <div class="flex justify-end gap-x-2 items-center m-2 pr-1">
-    <button @click="emit('play')" :class="$style.play" />
+  <div class="flex justify-end gap-x-2 items-center m-2 pr-1 relative z-[2]">
+    <button @click="emit('play')" :class="$style.play" class="tooltip btn tooltip-left" data-tip="compile" />
   </div>
 </template>
 
@@ -17,13 +17,6 @@
   .setting-button {
     background-repeat: no-repeat;
     background-position: center;
-    --size: 43px;
-    width: var(--size);
-    height: var(--size);
-    max-width: var(--size);
-    max-height: var(--size);
-    min-width: var(--size);
-    min-height: var(--size);
     background-size: 24px;
   }
   .play {
