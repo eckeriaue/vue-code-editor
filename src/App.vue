@@ -79,5 +79,8 @@
   @tailwind components;
   @tailwind utilities;
 
+  .cm-editor {
+    background-color: hsla(var(--b1) / var(--tw-bg-opacity, 1));
+  }
 </style>
 
