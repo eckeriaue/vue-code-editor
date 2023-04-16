@@ -13,7 +13,7 @@ export default computed(() => {
   <!DOCTYPE html>
   <html>
     <head>
-      ${document.head?.innerHTML}
+      ${config.syncThemePreview ? document.head?.innerHTML : ''}
       <style>
         ${unref(cssReset)}
         ${unref(ls.css.code)}

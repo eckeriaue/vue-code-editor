@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { ref, unref, computed } from 'vue'
-  import config, {scriptTypes} from '../../helpers/config'
+  import config, {scriptTypes, themes} from '../../helpers/config'
 
   const open = ref(false)
   const cdnAddlink = ref('')
@@ -46,10 +46,18 @@
         <label @click="open = false" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
         <h3 v-text="'Настройки'" class="text-xl font-medium" />
         <menu>
+          <!-- todo: выводить настройки автоматически -->
+
+          <li class="flex w-full items-center justify-between mt-8">
+            <span v-text="'тема'" class="font-medium" />
+            <select v-model="config.theme" class="select w-72 select-sm select-bordered">
+              <option v-for="(theme) in themes" :key="theme" :value="theme" v-text="theme" />
+            </select>
+          </li>
 
           <li class="flex w-full items-center justify-between mt-8">
             <span v-text="'режим компиляции'" class="font-medium" />
-            <select v-model="config.compile.mode" class="select w-72 select-sm select-bordered">
+            <select v-model="config.compile.mode" :class="{'select-error': config.compile.mode === 'instantly'}" class="select w-72 select-sm select-bordered">
               <option v-for="(compileOption, name, i) in settings.compile" :key="compileOption" :value="name" v-text="compileOption" />
             </select>
           </li>
@@ -67,18 +75,26 @@
             <div class="w-72 space-y-2">
               <TransitionGroup tag="menu" name="fade-slide"  class="w-full space-y-1">
                 <li v-for="(_, i) in config.CDN" :key="config.CDN[i]" class="w-full transition-all input-group">
-                  <input  type="text" v-model="config.CDN[i]" @input="hideCdnIfVoid(i)" placeholder="Ссылка на библиотеку" class="w-full input input-bordered input-sm" />
+                  <input autocomplete="off"  type="text" v-model="config.CDN[i]" @input="hideCdnIfVoid(i)" placeholder="Ссылка на библиотеку" class="w-full input input-bordered input-sm" />
                   <button @click="removeCdnByIndex(i)" class="btn btn-outline btn-error btn-sm" v-text="'✕'" />
                 </li>
               </TransitionGroup>
               <div class="input-group w-full">
-                <input type="text" v-model="cdnAddlink" @keypress.enter="addlink" placeholder="Ссылка на библиотеку" class="input input-bordered input-sm" />
+                <input autocomplete="off" type="text" v-model="cdnAddlink" @keypress.enter="addlink" placeholder="Ссылка на библиотеку" class="input input-bordered input-sm" />
                 <button :disabled="disabledCdnAddButton" class="btn btn-sm" @click="addlink" v-text="'добавить'" />
               </div>
             </div>
           </li>
 
         </menu>
+        
+        <menu class="mt-12">
+          <li class="text-sm font-medium flex items-center gap-x-2">
+            <input id="sync-theme-preview" type="checkbox" class="toggle toggle-sm" v-model="config.syncThemePreview" />
+            <label for="sync-theme-preview" class="cursor-pointer" v-text="'Одинаковое оформление редактора и preview окна'" />
+          </li>
+        </menu>
+
       </div>
     </div>
   </Teleport>

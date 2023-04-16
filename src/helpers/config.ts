@@ -1,4 +1,5 @@
 import { reactive } from "vue"
+import { oneDark } from '@codemirror/theme-one-dark'
 
 
 type EditorTimers = {
@@ -19,8 +20,11 @@ export const timers: EditorTimers = {
 type scriptTypes = 'text/javascript' | 'module' | 'x-shader/x-fragment'
 export const scriptTypes: scriptTypes[] = ['text/javascript', 'module', 'x-shader/x-fragment']
 
+export const themes = ['dark']
+
 export default reactive({
   theme: 'dark',
+  syncThemePreview: true,
   compile: {
     mode: 'oncommand' as 'instantly' | 'oncommand' | keyof EditorTimers
   },
