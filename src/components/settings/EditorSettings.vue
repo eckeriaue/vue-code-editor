@@ -1,11 +1,10 @@
 <script setup lang="ts">
-  import { ref, unref } from 'vue'
+  import { ref, unref, computed } from 'vue'
   import config, {scriptTypes} from '../../helpers/config'
-
 
   const open = ref(false)
   const cdnAddlink = ref('')
-
+  const disabledCdnAddButton = computed(() => unref(cdnAddlink) === '' || config.CDN.includes(unref(cdnAddlink)))
   const settings = {
     compile: {
       oncommand: 'по команде',
@@ -17,13 +16,21 @@
   }
 
 
-  function addlink () {
+  function addlink() {
     if (unref(cdnAddlink) === '') return
     if (config.CDN.includes(unref(cdnAddlink))) {
       return
     }
     config.CDN.push(unref(cdnAddlink))
     cdnAddlink.value = ''
+  }
+
+  const removeCdnByIndex = (index: number) => config.CDN.splice(index, 1)
+
+  function hideCdnIfVoid(i: number) {
+    if (config.CDN[i] === '') {
+      removeCdnByIndex(i)
+    }
   }
 </script>
 <template>
@@ -60,13 +67,13 @@
             <div class="w-72 space-y-2">
               <TransitionGroup tag="menu" name="fade-slide"  class="w-full space-y-1">
                 <li v-for="(_, i) in config.CDN" :key="config.CDN[i]" class="w-full transition-all input-group">
-                  <input  type="text" v-model="config.CDN[i]" placeholder="Ссылка на библиотеку" class="w-full input input-bordered input-sm" />
-                  <button @click="config.CDN.splice(i, 1)" class="btn btn-outline btn-error btn-sm" v-text="'✕'" />
+                  <input  type="text" v-model="config.CDN[i]" @input="hideCdnIfVoid(i)" placeholder="Ссылка на библиотеку" class="w-full input input-bordered input-sm" />
+                  <button @click="removeCdnByIndex(i)" class="btn btn-outline btn-error btn-sm" v-text="'✕'" />
                 </li>
               </TransitionGroup>
               <div class="input-group w-full">
                 <input type="text" v-model="cdnAddlink" @keypress.enter="addlink" placeholder="Ссылка на библиотеку" class="input input-bordered input-sm" />
-                <button :disabled="unref(cdnAddlink) === '' || config.CDN.includes(cdnAddlink)" class="btn btn-sm" @click="addlink" v-text="'добавить'" />
+                <button :disabled="disabledCdnAddButton" class="btn btn-sm" @click="addlink" v-text="'добавить'" />
               </div>
             </div>
           </li>
