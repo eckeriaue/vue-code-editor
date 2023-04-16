@@ -2,8 +2,8 @@
 
   // todo: сделать вариации редактора
   // сделать компиляцию только скриптов, html и css компилировать сразу
-  import { ref, unref, computed, defineComponent, reactive } from 'vue'
-  import config from './helpers/config'
+  import { ref, unref, computed, defineComponent,  watch } from 'vue'
+  import config, {timers} from './helpers/config'
   import langMap from './helpers/ls'
   import editor from './helpers/editor'
   import preview from './helpers/preview'
@@ -23,15 +23,25 @@
       })
 
       const srcdoc = ref(localStorage.getItem('compileCode') ?? unref(compileCode))
+
+      const compile = async () => srcdoc.value = unref(compileCode)
+      let timeout: number;
+      watch([() => config.compile.mode, () => unref(compileCode)], ([mode, code]) => {
+
+        if (timers[mode]) {
+          if (typeof timeout === 'number') clearTimeout(timeout)
+          timeout = setTimeout(compile, timers[mode])
+        }
+      })
       return {
         langMap,
         editor,
         preview,
         resizer,
-        srcdoc,
+        srcdoc: computed(() => config.compile.mode === 'instantly' ?  unref(compileCode) : unref(srcdoc)),
         compileCode,
         config,
-        complile: async () => srcdoc.value = unref(compileCode),
+        compile,
         unref,
         selectedLang: ref<'html' | 'js' | 'css'>('html'),
         editorName: {
@@ -51,14 +61,14 @@
       <editor-tools
         v-model:lang="selectedLang"
         v-model:mode="mode"
-        @play="complile"
+        @play="compile"
       />
 
       <component :is="editorName[mode]" :lang="selectedLang" />
       <div @mousedown="resizer.start($event)" :class="$style.resizer" />
     </div>
 
-    <iframe-preview :class="$style.rightSide" :srcdoc="config.compile.mode === 'oncommand' ? srcdoc : compileCode" />
+    <iframe-preview :class="$style.rightSide" :srcdoc="srcdoc" />
 
   </div>
 </template>

@@ -73,7 +73,7 @@ import config from '../../helpers/config';
     </ModalWindow>
 
 
-    <button v-if="config.compile.mode !== 'instantly'" @click="emit('play')" :class="$style.play" class="tooltip btn-sm w-8 h-8 btn tooltip-left" data-tip="compile" />
+    <button v-if="config.compile.mode === 'oncommand'" @click="emit('play')" :class="$style.play" class="tooltip btn-sm w-8 h-8 btn tooltip-left" data-tip="compile" />
   </div>
 </template>
 
