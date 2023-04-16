@@ -23,6 +23,7 @@ export const scriptTypes: scriptTypes[] = ['text/javascript', 'module', 'x-shade
 export const themes = ['dark']
 
 export default reactive({
+  tabsize: 2,
   theme: 'dark',
   syncThemePreview: true,
   compile: {

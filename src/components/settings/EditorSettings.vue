@@ -63,6 +63,11 @@
           </li>
 
           <li class="flex w-full items-center justify-between mt-8">
+            <span v-text="'размер табов'" class="font-medium" />
+            <input autocomplete="off"  type="number" v-model.number="config.tabsize" class="w-72 input input-bordered input-sm" />
+          </li>
+
+          <li class="flex w-full items-center justify-between mt-8">
             <span v-text="'тип script'" class="font-medium" />
             <select v-model="config.script.type" class="select select-sm w-72 select-bordered">
               <option v-for="(scriptType, name, i) in scriptTypes" :key="scriptType" :value="scriptType" v-text="scriptType" />
