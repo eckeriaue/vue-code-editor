@@ -20,7 +20,7 @@ import config from '../../helpers/config';
           <span v-text="'режим компиляции'" class="font-medium" />
           <select v-model="config.compile.mode" class="select select-bordered">
             <option value="oncommand" v-text="'по команде'" />
-            <option value="oncommand" v-text="'по команде'" />
+            <option value="instantly" v-text="'моментально'" />
             <option value="1sec" v-text="'после 1 сек. покоя'" />
             <option value="3sec" v-text="'после 3 сек. покоя'" />
             <option value="5sec" v-text="'после 5 сек. покоя'" />
