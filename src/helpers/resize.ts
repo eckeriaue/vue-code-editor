@@ -23,7 +23,7 @@ const resize = () => {
     },
 
     end() {
-      document.body.classList.remove('cursor-e-resize')
+      document.documentElement.classList.remove('cursor-e-resize')
       document.body.classList.remove('pointer-events-none')
       window.removeEventListener('mousemove', resizer.move)
       window.removeEventListener('mouseup', resizer.end)
@@ -34,7 +34,7 @@ const resize = () => {
     start(event: MouseEvent) {
       this.resized.value = true
       this.currentEvent = event
-      document.body.classList.add('cursor-e-resize')
+      document.documentElement.classList.add('cursor-e-resize')
       document.body.classList.add('pointer-events-none')
       window.addEventListener('mousemove', resizer.move)
       window.addEventListener('mouseup', resizer.end)
