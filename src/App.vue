@@ -3,7 +3,7 @@
   // todo: сделать вариации редактора
   // сделать компиляцию только скриптов, html и css компилировать сразу
   import { ref, unref, computed, defineComponent,  watch } from 'vue'
-  import config, { timers } from './helpers/config'
+  import config, {timers} from './helpers/config'
   import langMap from './helpers/ls'
   import editor from './helpers/editor'
   import preview from './helpers/preview'
@@ -26,7 +26,7 @@
 
       const compile = async () => srcdoc.value = unref(compileCode)
       let timeout: number;
-      watch([() => config.compile.mode, () => unref(compileCode)], ([mode, _code]) => {
+      watch([() => config.compile.mode, () => unref(compileCode)], ([mode, code]) => {
 
         if (timers[mode]) {
           if (typeof timeout === 'number') clearTimeout(timeout)
