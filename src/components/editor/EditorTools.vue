@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
   import ls from '../../helpers/ls'
-  import { ref } from 'vue'
+  import { ref, type Ref, unref} from 'vue'
   import ModalWindow from '../shared/ModalWindow/ModalWindow.vue'
 
 
@@ -22,14 +22,20 @@
   type Mode = {
     [key in iProps['mode']]: {
       gif: string
+      png: string
+      filepath: Ref<'gif' | 'png'>
     }
   }
   const modes: Mode = {
     single: {
-      gif: new URL('./msedge_A7IyrC1I6f.gif', import.meta.url).href
+      gif: new URL('./modes-preview/gif/single.gif', import.meta.url).href,
+      png: new URL('./modes-preview/img/single.png', import.meta.url).href,
+      filepath: ref('png'),
     },
     cascad: {
-      gif: new URL('./msedge_GYRZCuywzQ.gif', import.meta.url).href
+      gif: new URL('./modes-preview/gif/cascad.gif', import.meta.url).href,
+      png: new URL('./modes-preview/img/cascad.png', import.meta.url).href,
+      filepath: ref('png'),
     },
   }
 
@@ -50,9 +56,12 @@
           :for="id"
           v-for="(mod, name) in modes"
           :key="name"
+          :data-text="name"
           @click="emit('update:mode', name)"
-          class="min-h-full w-1/2 btn"
-          :style="{backgroundImage: `url('${mod.gif}')`}"
+          class="relative before:relative before:z-[1] overflow-hidden hover:before:opacity-0 hover:after:opacity-0 before:transition-all after:transition-all min-h-full w-1/2 lg:w-96 btn bg-cover bg-no-repeat before:content-[attr(data-text)] after:absolute after:top-0 after:left-0 after:w-full after:h-full after:bg-black after:opacity-50"
+          @mouseenter="mod.filepath.value = 'gif'"
+          @mouseleave="mod.filepath.value = 'png'"
+          :style="{backgroundImage: `url('${mod[unref(mod.filepath)]}')`}"
         />
       </div>
     </ModalWindow>

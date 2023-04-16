@@ -9,7 +9,7 @@
 </script>
 
 <template>
-  <div>
+  <div class="max-h-screen overflow-auto">
     <Codemirror
       :extensions="ls[props.lang].extensions"
       v-model="ls[props.lang].code.value"
