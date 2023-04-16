@@ -1,6 +1,7 @@
 <script setup lang="ts">
   import { ref, unref, computed } from 'vue'
   import config, {scriptTypes, themes} from '../../helpers/config'
+import Collapse from '../shared/Collapse.vue';
 
   const open = ref(false)
   const cdnAddlink = ref('')
@@ -67,12 +68,6 @@
             <input autocomplete="off"  type="number" v-model.number="config.tabsize" class="w-72 input input-bordered input-sm" />
           </li>
 
-          <li class="flex w-full items-center justify-between mt-8">
-            <span v-text="'тип script'" class="font-medium" />
-            <select v-model="config.script.type" class="select select-sm w-72 select-bordered">
-              <option v-for="(scriptType, name, i) in scriptTypes" :key="scriptType" :value="scriptType" v-text="scriptType" />
-            </select>
-          </li>
 
           <li class="flex w-full justify-between mt-8">
             <span v-text="'CDN'"  />
@@ -92,13 +87,27 @@
           </li>
 
         </menu>
-        
+
         <menu class="mt-12">
           <li class="text-sm font-medium flex items-center gap-x-2">
             <input id="sync-theme-preview" type="checkbox" class="toggle toggle-sm" v-model="config.syncThemePreview" />
             <label for="sync-theme-preview" class="cursor-pointer" v-text="'Одинаковое оформление редактора и preview окна'" />
           </li>
         </menu>
+
+
+        <div class="mt-6">
+          <Collapse title="Расширенные">
+            <menu>
+              <li class="flex w-full items-center justify-between mt-8">
+                <span v-text="'тип script'" class="font-medium" />
+                <select v-model="config.script.type" class="select select-sm w-72 select-bordered">
+                  <option v-for="(scriptType, name, i) in scriptTypes" :key="scriptType" :value="scriptType" v-text="scriptType" />
+                </select>
+              </li>
+            </menu>
+          </Collapse>
+        </div>
 
       </div>
     </div>
