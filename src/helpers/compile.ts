@@ -1,5 +1,6 @@
 import ls from './ls'
 import {unref, computed} from 'vue'
+import config from './config'
 
 const cssReset = computed(() => `* {
   margin: 0;
@@ -12,7 +13,7 @@ export default computed(() => {
   <!DOCTYPE html>
   <html>
     <head>
-      ${document.head.innerHTML}
+      ${document.head?.innerHTML}
       <style>
         ${unref(cssReset)}
         ${unref(ls.css.code)}
@@ -20,7 +21,7 @@ export default computed(() => {
     </head>
     <body>
       ${unref(ls.html.code)}
-      <scr`+`ipt>try {${unref(ls.js.code)}}catch(e) {}</sc`+`ript>
+      <scr`+`ipt type="${config.script.type}">try {${unref(ls.js.code)}}catch(e) {}</sc`+`ript>
     </body>
   </html>
   `.replaceAll('\n', '')

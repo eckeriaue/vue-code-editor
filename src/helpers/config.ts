@@ -15,9 +15,16 @@ export const timers: EditorTimers = {
   '5sec': 5000,
 }
 
+
+type scriptTypes = 'text/javascript' | 'module' | 'x-shader/x-fragment'
+export const scriptTypes: scriptTypes[] = ['text/javascript', 'module', 'x-shader/x-fragment']
+
 export default reactive({
   theme: 'dark',
   compile: {
     mode: 'oncommand' as 'instantly' | 'oncommand' | keyof EditorTimers
+  },
+  script: {
+    type: 'text/javascript' as scriptTypes
   }
 })

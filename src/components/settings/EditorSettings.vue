@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { ref } from 'vue'
-  import config from '../../helpers/config'
+  import config, {scriptTypes} from '../../helpers/config'
 
 
   const open = ref(false)
@@ -28,12 +28,23 @@
       <div class="modal-box min-w-fit" @click.stop>
         <label @click="open = false" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
         <h3 v-text="'Настройки'" class="text-xl font-medium" />
-        <div class="flex w-full items-center justify-between mt-8">
-          <span v-text="'режим компиляции'" class="font-medium" />
-          <select v-model="config.compile.mode" class="select select-bordered">
-            <option v-for="(compileOption, name, i) in settings.compile" :key="compileOption" :value="name" v-text="compileOption" />
-          </select>
-        </div>
+        <menu>
+
+          <li class="flex w-full items-center justify-between mt-8">
+            <span v-text="'режим компиляции'" class="font-medium" />
+            <select v-model="config.compile.mode" class="select select-bordered">
+              <option v-for="(compileOption, name, i) in settings.compile" :key="compileOption" :value="name" v-text="compileOption" />
+            </select>
+          </li>
+
+          <li class="flex w-full items-center justify-between mt-8">
+            <span v-text="'тип script'" class="font-medium" />
+            <select v-model="config.script.type" class="select select-bordered">
+              <option v-for="(scriptType, name, i) in scriptTypes" :key="scriptType" :value="scriptType" v-text="scriptType" />
+            </select>
+          </li>
+
+        </menu>
       </div>
     </div>
   </Teleport>
