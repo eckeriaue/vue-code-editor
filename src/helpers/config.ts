@@ -22,7 +22,8 @@ export const scriptTypes: scriptTypes[] = ['text/javascript', 'module', 'x-shade
 
 export const themes = ['dark']
 
-export default reactive({
+
+const config = Object.assign({
   tabsize: 2,
   theme: 'dark',
   syncThemePreview: true,
@@ -33,4 +34,7 @@ export default reactive({
     type: 'text/javascript' as scriptTypes
   },
   CDN: []
-})
+}, JSON.parse(localStorage.getItem('config') ? localStorage.getItem('config') : '{}'))
+
+
+export default reactive(config)

@@ -2,7 +2,7 @@
 
   // todo: сделать вариации редактора
   // сделать компиляцию только скриптов, html и css компилировать сразу
-  import { ref, unref, computed, defineComponent,  watch } from 'vue'
+  import { ref, unref, computed, defineComponent,  watch, onMounted } from 'vue'
   import config, {timers} from './helpers/config'
   import langMap from './helpers/ls'
   import editor from './helpers/editor'
@@ -33,6 +33,13 @@
           timeout = setTimeout(compile, timers[mode])
         }
       })
+
+      watch(
+        config,
+        conf => localStorage.setItem('config', JSON.stringify(conf)),
+        {deep: true}
+      )
+
       return {
         langMap,
         editor,

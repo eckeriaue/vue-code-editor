@@ -4,6 +4,7 @@
   import { Codemirror } from 'vue-codemirror'
 
   defineProps(['lang'])
+
 </script>
 
 <template>

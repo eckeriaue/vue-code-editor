@@ -3,10 +3,11 @@
   import config from '../../helpers/config'
   import { Codemirror } from 'vue-codemirror'
 
-
   const props = defineProps<{
     lang: 'html' | 'css' | 'js'
   }>()
+
+  
 </script>
 
 <template>
