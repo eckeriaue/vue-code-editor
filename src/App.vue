@@ -29,8 +29,8 @@
         preview,
         resizer,
         srcdoc,
+        compileCode,
         config,
-        castling: () => config.switched = !config.switched,
         complile: async () => srcdoc.value = unref(compileCode),
         unref,
         selectedLang: ref<'html' | 'js' | 'css'>('html'),
@@ -58,7 +58,7 @@
       <div @mousedown="resizer.start($event)" :class="$style.resizer" />
     </div>
 
-    <iframe-preview :class="$style.rightSide" :srcdoc="srcdoc" />
+    <iframe-preview :class="$style.rightSide" :srcdoc="config.compile.mode === 'oncommand' ? srcdoc : compileCode" />
 
   </div>
 </template>

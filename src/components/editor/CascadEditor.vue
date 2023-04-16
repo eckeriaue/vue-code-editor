@@ -1,6 +1,8 @@
 <script setup lang="ts">
   import ls from '../../helpers/ls'
   import { Codemirror } from 'vue-codemirror'
+
+  defineProps(['lang'])
 </script>
 
 <template>

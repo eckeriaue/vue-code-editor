@@ -3,6 +3,8 @@
   import ls from '../../helpers/ls'
   import { ref, type Ref, unref} from 'vue'
   import ModalWindow from '../shared/ModalWindow/ModalWindow.vue'
+  import EditorSettings from '../settings/EditorSettings.vue';
+import config from '../../helpers/config';
 
 
   interface iProps {
@@ -44,20 +46,22 @@
 <template>
   <div class="flex justify-end gap-x-2 items-center px-3 py-2 relative z-[2]">
     
-    <div class="tabs tabs-boxed mr-auto min-w-max" v-if="props.mode === 'single'">
-      <button class="tab tab-sm font-medium transition-all" @click="emit('update:lang', name)" :class="{'tab-active': name === props.lang}" v-for="(lang, name, i) in ls" :key="name" v-text="name"  />
+    <div class="mr-auto flex gap-x-2">
+      <editor-settings />
+      <div class="tabs tabs-boxed min-w-max" v-if="props.mode === 'single'">
+        <button class="tab tab-sm font-medium transition-all" @click="emit('update:lang', name)" :class="{'tab-active': name === props.lang}" v-for="(lang, name, i) in ls" :key="name" v-text="name"  />
+      </div>
     </div>
 
-    <ModalWindow title="mode" #="{id}">
+    <ModalWindow title="mode" #="{toggle}">
       <h3 v-text="'Режим ввода'" class="font-semibold" />
 
       <div class="flex h-64 btn-group mt-6">
         <label
-          :for="id"
           v-for="(mod, name) in modes"
           :key="name"
           :data-text="name"
-          @click="emit('update:mode', name)"
+          @click="emit('update:mode', name), toggle()"
           class="relative before:relative before:z-[1] overflow-hidden hover:before:opacity-0 hover:after:opacity-0 before:transition-all after:transition-all min-h-full w-1/2 lg:w-96 btn bg-cover bg-no-repeat before:content-[attr(data-text)] after:absolute after:top-0 after:left-0 after:w-full after:h-full after:bg-black after:opacity-50"
           @mouseenter="mod.filepath.value = 'gif'"
           @mouseleave="mod.filepath.value = 'png'"
@@ -67,7 +71,7 @@
     </ModalWindow>
 
 
-    <button @click="emit('play')" :class="$style.play" class="tooltip btn-sm w-8 h-8 btn tooltip-left" data-tip="compile" />
+    <button v-if="config.compile.mode !== 'instantly'" @click="emit('play')" :class="$style.play" class="tooltip btn-sm w-8 h-8 btn tooltip-left" data-tip="compile" />
   </div>
 </template>
 

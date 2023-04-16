@@ -3,7 +3,8 @@ import { reactive } from "vue"
 
 
 export default reactive({
-  switched: false,
   theme: 'dark',
-  fullscreen: false,
+  compile: {
+    mode: 'oncommand' as 'instantly' | 'oncommand'
+  }
 })
