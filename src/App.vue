@@ -10,11 +10,11 @@
   import compileCode from './helpers/compile'
   import resize from './helpers/resize'
   import IframePreview from './components/preview/IframePreview.vue'
-  import {EditorTools, SelectEditor, CascadEditor} from './components/editor'
-  
+  import {EditorTools, SingleEditor, CascadEditor} from './components/editor'
+
 
   export default defineComponent({
-    components: { EditorTools, CascadEditor, IframePreview },
+    components: { EditorTools, IframePreview },
     setup() {
       const resizer = resize()
 
@@ -33,6 +33,12 @@
         castling: () => config.switched = !config.switched,
         complile: async () => srcdoc.value = unref(compileCode),
         unref,
+        selectedLang: ref<'html' | 'js' | 'css'>('html'),
+        editorName: {
+          single: SingleEditor,
+          cascad: CascadEditor
+        },
+        mode: ref<'cascad' | 'single'>('single')
       }
     }
   })
@@ -42,8 +48,13 @@
   <div :data-theme="config.theme" class="flex overflow-hidden w-screen h-screen" :class="$style.container">
 
     <div :class="$style.leftSide" class="flex flex-col relative overflow-hidden">
-      <editor-tools @play="complile"  />
-      <cascad-editor />
+      <editor-tools
+        v-model:lang="selectedLang"
+        v-model:mode="mode"
+        @play="complile"
+      />
+
+      <component :is="editorName[mode]" :lang="selectedLang" />
       <div @mousedown="resizer.start($event)" :class="$style.resizer" />
     </div>
 
