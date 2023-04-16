@@ -109,6 +109,10 @@ import Collapse from '../shared/Collapse.vue';
           </Collapse>
         </div>
 
+        <div class="input-group ml-auto w-fit mt-4">
+          <button disabled class="btn btn-outline btn-xs">экспорт</button>
+          <button disabled class="btn btn-outline btn-xs">импорт</button>
+        </div>
       </div>
     </div>
   </Teleport>
