@@ -18,6 +18,7 @@ export default computed(() => {
         ${unref(cssReset)}
         ${unref(ls.css.code)}
       </style>
+      ${config.CDN.map(cdn => `<script src="${cdn}" defer></script>`)}
     </head>
     <body>
       ${unref(ls.html.code)}

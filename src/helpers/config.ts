@@ -26,5 +26,6 @@ export default reactive({
   },
   script: {
     type: 'text/javascript' as scriptTypes
-  }
+  },
+  CDN: []
 })

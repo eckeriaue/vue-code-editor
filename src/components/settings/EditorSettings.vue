@@ -1,10 +1,10 @@
 <script setup lang="ts">
-  import { ref } from 'vue'
+  import { ref, unref } from 'vue'
   import config, {scriptTypes} from '../../helpers/config'
 
 
   const open = ref(false)
-
+  const cdnAddlink = ref('')
 
   const settings = {
     compile: {
@@ -14,6 +14,16 @@
       '3sec': 'после 3 сек. покоя',
       '5sec': 'после 5 сек. покоя',
     }
+  }
+
+
+  function addlink () {
+    if (unref(cdnAddlink) === '') return
+    if (config.CDN.includes(unref(cdnAddlink))) {
+      return
+    }
+    config.CDN.push(unref(cdnAddlink))
+    cdnAddlink.value = ''
   }
 </script>
 <template>
@@ -32,16 +42,33 @@
 
           <li class="flex w-full items-center justify-between mt-8">
             <span v-text="'режим компиляции'" class="font-medium" />
-            <select v-model="config.compile.mode" class="select select-bordered">
+            <select v-model="config.compile.mode" class="select w-72 select-sm select-bordered">
               <option v-for="(compileOption, name, i) in settings.compile" :key="compileOption" :value="name" v-text="compileOption" />
             </select>
           </li>
 
           <li class="flex w-full items-center justify-between mt-8">
             <span v-text="'тип script'" class="font-medium" />
-            <select v-model="config.script.type" class="select select-bordered">
+            <select v-model="config.script.type" class="select select-sm w-72 select-bordered">
               <option v-for="(scriptType, name, i) in scriptTypes" :key="scriptType" :value="scriptType" v-text="scriptType" />
             </select>
+          </li>
+
+          <li class="flex w-full justify-between mt-8">
+            <span v-text="'CDN'"  />
+
+            <div class="w-72 space-y-2">
+              <menu class="w-full space-y-1">
+                <li v-for="(_, i) in config.CDN" :key="i" class="w-full input-group">
+                  <input  type="text" v-model="config.CDN[i]" placeholder="Ссылка на библиотеку" class="w-full input input-bordered input-sm" />
+                  <button @click="config.CDN.splice(i, 1)" class="btn btn-outline btn-error btn-sm" v-text="'✕'" />
+                </li>
+              </menu>
+              <div class="input-group w-full">
+                <input type="text" v-model="cdnAddlink" @keypress.enter="addlink" placeholder="Ссылка на библиотеку" class="input input-bordered input-sm" />
+                <button :disabled="unref(cdnAddlink) === ''" class="btn btn-sm" @click="addlink" v-text="'добавить'" />
+              </div>
+            </div>
           </li>
 
         </menu>
