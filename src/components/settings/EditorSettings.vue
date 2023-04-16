@@ -58,15 +58,15 @@
             <span v-text="'CDN'"  />
 
             <div class="w-72 space-y-2">
-              <menu class="w-full space-y-1">
-                <li v-for="(_, i) in config.CDN" :key="i" class="w-full input-group">
+              <TransitionGroup tag="menu" name="fade-slide"  class="w-full space-y-1">
+                <li v-for="(_, i) in config.CDN" :key="config.CDN[i]" class="w-full transition-all input-group">
                   <input  type="text" v-model="config.CDN[i]" placeholder="Ссылка на библиотеку" class="w-full input input-bordered input-sm" />
                   <button @click="config.CDN.splice(i, 1)" class="btn btn-outline btn-error btn-sm" v-text="'✕'" />
                 </li>
-              </menu>
+              </TransitionGroup>
               <div class="input-group w-full">
                 <input type="text" v-model="cdnAddlink" @keypress.enter="addlink" placeholder="Ссылка на библиотеку" class="input input-bordered input-sm" />
-                <button :disabled="unref(cdnAddlink) === ''" class="btn btn-sm" @click="addlink" v-text="'добавить'" />
+                <button :disabled="unref(cdnAddlink) === '' || config.CDN.includes(cdnAddlink)" class="btn btn-sm" @click="addlink" v-text="'добавить'" />
               </div>
             </div>
           </li>
@@ -77,3 +77,19 @@
   </Teleport>
   </button>
 </template>
+
+<style scoped>
+  .fade-slide-enter-active,
+  .fade-slide-leave-active {
+    transform: translateY(0px);
+    opacity: 1;
+    max-height: 999px;
+  }
+
+  .fade-slide-enter-from,
+  .fade-slide-leave-to {
+    max-height: 0px;
+    transform: translateY(15px);
+    opacity: 0;
+  }
+</style>
