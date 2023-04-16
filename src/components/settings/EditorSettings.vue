@@ -51,7 +51,7 @@ import Collapse from '../shared/Collapse.vue';
 
           <li class="flex w-full items-center justify-between mt-8">
             <span v-text="'тема'" class="font-medium" />
-            <select v-model="config.theme" class="select w-72 select-sm select-bordered">
+            <select disabled v-model="config.theme" class="select w-72 select-sm select-bordered">
               <option v-for="(theme) in themes" :key="theme" :value="theme" v-text="theme" />
             </select>
           </li>
