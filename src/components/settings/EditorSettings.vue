@@ -42,10 +42,10 @@ import Collapse from '../shared/Collapse.vue';
     </svg>
 
   <Teleport to="#app">
-    <div v-if="open" class="modal fixed  modal-bottom sm:modal-middle visible pointer-events-auto opacity-100" @click="open = false">
-      <div class="modal-box min-w-fit" @click.stop>
+    <div v-if="open" class="modal fixed block max-h-screen overflow-auto modal-bottom sm:modal-middle visible pointer-events-auto opacity-100" @click="open = false">
+      <div class="modal-box min-w-fit mx-auto overflow-visible max-h-fit" @click.stop>
         <label @click="open = false" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
-        <h3 v-text="'Настройки'" class="text-xl font-medium" />
+        <h3 v-text="'Настройки'" class="text-3xl font-medium" />
         <menu>
           <!-- todo: выводить настройки автоматически -->
 
