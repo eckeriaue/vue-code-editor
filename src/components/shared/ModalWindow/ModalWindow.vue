@@ -15,9 +15,6 @@
       <div class="modal-box min-w-fit">
         <label for="chose-mode-popup" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
         <slot :id="'chose-mode-popup'"></slot>
-        <!-- <div class="modal-action">
-          <label for="chose-mode-popup" class="btn btn-xs">ok</label>
-        </div> -->
       </div>
     </div>
   </Teleport>

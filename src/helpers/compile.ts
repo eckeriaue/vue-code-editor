@@ -1,6 +1,11 @@
 import ls from './ls'
 import {unref, computed} from 'vue'
 
+const cssReset = computed(() => `* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}`)
 
 export default computed(() => `
 <!DOCTYPE html>
@@ -8,6 +13,7 @@ export default computed(() => `
   <head>
     ${document.head.innerHTML}
     <style>
+      ${unref(cssReset)}
       ${unref(ls.css.code)}
     </style>
   </head>
