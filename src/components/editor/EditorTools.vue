@@ -57,9 +57,10 @@ import config from '../../helpers/config';
       <h3 v-text="'Режим ввода'" class="font-semibold" />
 
       <div class="flex h-64 btn-group mt-6">
+
         <label
-          v-for="(mod, name) in modes"
-          :key="name"
+          v-for="(mod, name, i) in modes"
+          :key="i"
           :data-text="name"
           @click="emit('update:mode', name), toggle()"
           class="relative before:relative before:z-[1] overflow-hidden hover:before:opacity-0 hover:after:opacity-0 before:transition-all after:transition-all min-h-full w-1/2 lg:w-96 btn bg-cover bg-no-repeat before:content-[attr(data-text)] after:absolute after:top-0 after:left-0 after:w-full after:h-full after:bg-black after:opacity-50"
@@ -67,6 +68,7 @@ import config from '../../helpers/config';
           @mouseleave="mod.filepath.value = 'png'"
           :style="{backgroundImage: `url('${mod[unref(mod.filepath)]}')`}"
         />
+
       </div>
     </ModalWindow>
 
